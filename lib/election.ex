@@ -79,6 +79,8 @@ defmodule Election do
 
   def update(%Election{} = _election, ["q" <> _]), do: :quit
 
+  def update(%Election{} = election, invalid_command) when is_list(invalid_command), do: election
+
   defp vote(%Election{} = election, {id, ""}) do
     candidates = Enum.map(election.candidates, &maybe_inc_vote(&1, id))
     %{election | candidates: candidates}
